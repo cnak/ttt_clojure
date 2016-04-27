@@ -1,4 +1,4 @@
 (ns tic-tac-toe.board)
 
-((defn empty-board []
-   '(- - - - - - - -)))
+(defn empty-board []
+  '(- - - - - - - -))
