@@ -2,8 +2,8 @@
   (:require [speclj.core :refer :all]
             [tic-tac-toe.core :refer :all]))
 
-(describe "Displays a board"
-  (it "retuns an empty board"
+(describe "a board"
+  (it "returns an empty board"
     (should= {:top-left "-"
               :top-center "-" 
               :top-right "-" 
