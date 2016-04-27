@@ -5,9 +5,9 @@ The classic tic tac toe game written in Clojure.
 ### Game Options
 
 ## Requirements
-- ruby ~> 2.1.2
-- bundler ~> 1.7
-- rake ~> 10.0
+- clojure ~> 1.7.0
+- leiningen 2.6.1
+- java 1.8
 
 ## Installation
 
