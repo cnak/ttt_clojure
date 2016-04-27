@@ -1,7 +1,6 @@
-(ns tic-tac-toe.play-game
-  (:gen-class))
+(ns tic-tac-toe.play-game) 
+(use '[tic-tac-toe.console])
 
-(defn -main
-  [& args]
-  (println "Welcome to Tic Tac Toe\n")
-  (println "---\n---\n---\n"))
+(defn -main []
+  (print-empty-board )
+  )
