@@ -13,7 +13,7 @@
     (should= "Enter a move\n" 
              (with-out-str (ask-for-move))))
   (it "gets player's move"
-    (should= 3 
+    (should= 2 
              (with-in-str "3"
                (get-move))))
   ) 

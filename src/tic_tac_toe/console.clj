@@ -28,7 +28,7 @@
   (display-to-console "Enter a move\n"))
 
 (defn get-move []
-  (read-string (flush) (read-line)))
+  (- (read-string (flush) (read-line)) 1))
 
 (defn print-welcome-message []
   (display-to-console "\nWelcome to Tic Tac Toe\n"))
