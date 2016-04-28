@@ -1,10 +1,13 @@
 (ns tic-tac-toe.board)
 
-(def board
-  ["-" "-" "-" "-" "-" "-" "-" "-" ])
+(defn- valid-location? [location board] 
+  (if (<= location (- (count board) 1))
+     true
+     false))
 
-(defn empty-board []
-  board)
+(defn make-move [board location mark]
+  (if (valid-location? location board)
+    (assoc board location mark) board))
 
-(defn make-move [location mark]
-  (assoc board location mark))
+(defn empty-board [] ["-" "-" "-" "-" "-" "-" "-" "-" "-"])
+
