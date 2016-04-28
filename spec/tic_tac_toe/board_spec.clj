@@ -4,4 +4,8 @@
 
 (describe "a board"
   (it "returns an empty board"
-    (should= '(- - - - - - - -) (empty-board) )))
+    (should= ["-" "-" "-" "-" "-" "-" "-" "-"]
+             (empty-board) ))
+  (it "makes a move in the center"
+    (should= ["-" "-" "-" "-" "X" "-" "-" "-"]
+             (make-move 4 "X") ))) 
