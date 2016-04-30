@@ -4,10 +4,10 @@
 
 (describe "printing board"
   (it "prints an empty board"
-    (should= "---\n---\n---\n" 
+    (should= "- - -\n- - -\n- - -\n" 
              (with-out-str (print-empty-board) )))
   (it "prints a board with a move"
-    (should= "---\n-X-\n---\n" 
+    (should= "- - -\n- X -\n- - -\n" 
              (with-out-str (print-board ["-" "-" "-" "-" "X" "-" "-" "-" "-"]) )))
   (it "asks for a move"
     (should= "Enter a move\n" 
