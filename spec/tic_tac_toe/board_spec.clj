@@ -18,9 +18,22 @@
   )
 
 (describe "Game over"
+  (it "should be game over game is won"
+    (should= true
+             (game-over? ["X" "X" "X" "-" "-" "-" "-" "-" "-"])))
   (it "should not be game over on start"
     (should= false
              (game-over? ["-" "-" "-" "-" "-" "-" "-" "-" "-"])))
+  (it "should be game over game is won"
+    (should= true
+             (game-over? ["X" "-" "-"
+                          "X" "-" "-"
+                          "X" "-" "-"])))
+  (it "should not be game over when remaining moves left"
+    (should= false
+             (game-over? ["X" "-" "X"
+                          "-" "O" "-"
+                          "-" "O" "-"])))
   )
 
 (describe "Game won"
@@ -36,21 +49,45 @@
                         "-" "-" "-"])))
   (it "should return true middle row as winner"
     (should= true
-             (middle-row-the-same? 
+             (game-won? 
                        ["-" "X" "X" 
                         "O" "O" "O"
                         "-" "-" "-"])))
-  (xit "should return true bottom row as winner"
+  (it "should return true top row as winner"
     (should= true
-             (middle-row-the-same? 
+             (game-won?
+                       ["X" "X" "X" 
+                        "-" "O" "O"
+                        "X" "-" "X"])))
+  (it "should return true middle row has blank "
+    (should= false
+             (game-won? 
+                       ["-" "X" "X" 
+                        "-" "-" "-"
+                        "-" "-" "-"])))
+  (it "should return true bottom row as winner"
+    (should= true
+             (game-won?
                        ["-" "X" "X" 
                         "-" "O" "O"
                         "X" "X" "X"])))
   (it "should return false middle row has blank "
     (should= false
-             (middle-row-the-same? 
+             (game-won? 
                        ["-" "X" "X" 
                         "-" "-" "-"
                         "-" "-" "-"])))
+  (it "should return win for left column"
+    (should= true
+             (game-won? 
+                       ["X" "-" "-" 
+                        "X" "-" "-"
+                        "X" "-" "-"])))
+  (it "should return win for middle column"
+    (should= true
+             (game-won? 
+                       ["-" "X" "-" 
+                        "-" "X" "-"
+                        "-" "X" "-"])))
   )
 
