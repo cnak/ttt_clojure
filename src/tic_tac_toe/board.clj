@@ -1,5 +1,8 @@
 (ns tic-tac-toe.board)
 
+(defn empty-cell? [cell]
+  (= "-" cell))
+
 (defn- get-cells [board positions]
   (mapv board positions))
 
@@ -10,9 +13,6 @@
   (if (contains-blank-cell? (row board)) 
     false
     (apply = (row board))))
-
-(defn winning-game? [board winning-sets]
-  )
 
 (defn top-row-the-winner? [board]
   (cells-the-same? #(get-cells % [0 1 2])board))
@@ -61,4 +61,11 @@
   (if (board-empty? board)
     false
     (game-won? board)))
+
+(defn board-full? [board]
+  (not-any? empty-cell? board)
+  )
+
+(defn game-drawn? [board]
+  (or (game-won? board) (board-full? board)))
 
