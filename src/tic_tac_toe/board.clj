@@ -5,76 +5,51 @@
   )
 
 (defn- top-row [board]
-  (cells-the-same? board [0 1 2]) 
-  )
+  (cells-the-same? board [0 1 2]))
 
 (defn- middle-row [board]
-  (cells-the-same? board [3 4 5]) 
-  )
+  (cells-the-same? board [3 4 5]))
 
 (defn- bottom-row [board]
-  (cells-the-same? board [6 7 8]) 
-  )
+  (cells-the-same? board [6 7 8]))
 
 (defn- left-column [board]
-  (cells-the-same? board [0 3 6]) 
-  )
+  (cells-the-same? board [0 3 6]))
 
 (defn- middle-column [board]
-  (cells-the-same? board [1 4 7]) 
-  )
+  (cells-the-same? board [1 4 7]))
 
 (defn- right-column [board]
-  (cells-the-same? board [2 5 8]) 
-  )
+  (cells-the-same? board [2 5 8]))
 
 (defn any-winning-positions? [board]
   (cells-the-same? board))
 
 (defn- contains-blank-cell? [board]
-  (if (some #(= "-" %) board) 
-    true
-    false
-    ))
+  (if (some #(= "-" %) board) true false))
 
-(defn row-the-same [row board]
+(defn- row-the-same [row board]
   (if (contains-blank-cell? (row board)) 
     false
-    (apply = (row board)) 
-    ) 
-  )
+    (apply = (row board))))
+
 (defn top-row-the-winner? [board]
   (row-the-same top-row board))
 
 (defn middle-row-the-winner? [board]
-  (if (contains-blank-cell? (middle-row board)) 
-    false
-    (apply = (middle-row board)) 
-    ))
+  (row-the-same middle-row board))
 
 (defn- bottom-row-the-winner? [board]
-  (if (contains-blank-cell? (bottom-row board)) 
-    false
-    (apply = (bottom-row board)) 
-    ))
+  (row-the-same bottom-row board))
 
 (defn- left-column-winner? [board]
-  (if (contains-blank-cell? (left-column board)) 
-    false
-    (apply = (left-column board)) 
-    ))
+  (row-the-same left-column board))
 
-(defn middle-column-winner? [board]
-  (if (contains-blank-cell? (middle-column board)) 
-    false
-    (apply = (middle-column board)) 
-    ))
+(defn- middle-column-winner? [board]
+  (row-the-same middle-column board))
 
-(defn right-column-winner? [board]
-  (if (contains-blank-cell? (right-column board)) 
-    false
-    (apply = (right-column board)) 
-    ))
+(defn- right-column-winner? [board]
+  (row-the-same right-column board))
 
 (defn- board-empty? [board]
   (every? #{"-"} board))
@@ -94,7 +69,5 @@
 (defn game-over? [board]
   (if (board-empty? board)
     false
-    (game-won? board)
-    )
-  )
+    (game-won? board)))
 
