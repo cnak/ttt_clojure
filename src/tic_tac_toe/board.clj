@@ -54,18 +54,14 @@
   (or (top-row-the-winner? board) (middle-row-the-winner? board) (bottom-row-the-winner? board) 
       (left-column-winner? board) (middle-column-winner? board) (right-column-winner? board) 
       (diagonal-top-left-winner? board)
-      (diagonal-top-right-winner? board)
-      ))
+      (diagonal-top-right-winner? board)))
 
-(defn game-over? [board]
-  (if (board-empty? board)
-    false
-    (game-won? board)))
-
-(defn board-full? [board]
-  (not-any? empty-cell? board)
-  )
+(defn- board-full? [board]
+  (not-any? empty-cell? board))
 
 (defn game-drawn? [board]
   (or (game-won? board) (board-full? board)))
+
+(defn game-over? [board]
+  (or (game-won? board) (game-drawn? board)))
 
