@@ -1,55 +1,42 @@
 (ns tic-tac-toe.board)
 
-(defn- cells-the-same? [board positions]
-  (mapv board positions)
-  )
-
-(defn- top-row [board]
-  (cells-the-same? board [0 1 2]))
-
-(defn- middle-row [board]
-  (cells-the-same? board [3 4 5]))
-
-(defn- bottom-row [board]
-  (cells-the-same? board [6 7 8]))
-
-(defn- left-column [board]
-  (cells-the-same? board [0 3 6]))
-
-(defn- middle-column [board]
-  (cells-the-same? board [1 4 7]))
-
-(defn- right-column [board]
-  (cells-the-same? board [2 5 8]))
-
-(defn any-winning-positions? [board]
-  (cells-the-same? board))
+(defn- get-cells [board positions]
+  (mapv board positions))
 
 (defn- contains-blank-cell? [board]
   (if (some #(= "-" %) board) true false))
 
-(defn- row-the-same [row board]
+(defn- cells-the-same? [row board]
   (if (contains-blank-cell? (row board)) 
     false
     (apply = (row board))))
 
+(defn winning-game? [board winning-sets]
+  )
+
 (defn top-row-the-winner? [board]
-  (row-the-same top-row board))
+  (cells-the-same? #(get-cells % [0 1 2])board))
 
 (defn middle-row-the-winner? [board]
-  (row-the-same middle-row board))
+  (cells-the-same? #(get-cells % [3 4 5])board))
 
 (defn- bottom-row-the-winner? [board]
-  (row-the-same bottom-row board))
+  (cells-the-same? #(get-cells % [6 7 8])board))
 
 (defn- left-column-winner? [board]
-  (row-the-same left-column board))
+  (cells-the-same? #(get-cells % [0 3 6])board))
 
 (defn- middle-column-winner? [board]
-  (row-the-same middle-column board))
+  (cells-the-same? #(get-cells % [1 4 7])board)) 
 
 (defn- right-column-winner? [board]
-  (row-the-same right-column board))
+  (cells-the-same? #(get-cells % [2 5 8])board)) 
+
+(defn diagonal-top-left-winner? [board]
+  (cells-the-same? #(get-cells % [0 4 8])board))
+
+(defn diagonal-top-right-winner? [board]
+  (cells-the-same? #(get-cells % [2 4 6])board))
 
 (defn- board-empty? [board]
   (every? #{"-"} board))
@@ -64,7 +51,11 @@
 (defn empty-board [] (repeat 9 "-"))
 
 (defn game-won? [board]
-  (or (top-row-the-winner? board) (middle-row-the-winner? board) (bottom-row-the-winner? board) (left-column-winner? board) (middle-column-winner? board) (right-column-winner? board)))
+  (or (top-row-the-winner? board) (middle-row-the-winner? board) (bottom-row-the-winner? board) 
+      (left-column-winner? board) (middle-column-winner? board) (right-column-winner? board) 
+      (diagonal-top-left-winner? board)
+      (diagonal-top-right-winner? board)
+      ))
 
 (defn game-over? [board]
   (if (board-empty? board)
