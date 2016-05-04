@@ -24,6 +24,10 @@
   (cells-the-same? board [1 4 7]) 
   )
 
+(defn- right-column [board]
+  (cells-the-same? board [2 5 8]) 
+  )
+
 (defn any-winning-positions? [board]
   (cells-the-same? board))
 
@@ -33,11 +37,14 @@
     false
     ))
 
-(defn top-row-the-winner? [board]
-  (if (contains-blank-cell? (top-row board)) 
+(defn row-the-same [row board]
+  (if (contains-blank-cell? (row board)) 
     false
-    (apply = (top-row board)) 
-    ))
+    (apply = (row board)) 
+    ) 
+  )
+(defn top-row-the-winner? [board]
+  (row-the-same top-row board))
 
 (defn middle-row-the-winner? [board]
   (if (contains-blank-cell? (middle-row board)) 
@@ -63,6 +70,12 @@
     (apply = (middle-column board)) 
     ))
 
+(defn right-column-winner? [board]
+  (if (contains-blank-cell? (right-column board)) 
+    false
+    (apply = (right-column board)) 
+    ))
+
 (defn- board-empty? [board]
   (every? #{"-"} board))
 
@@ -76,7 +89,7 @@
 (defn empty-board [] (repeat 9 "-"))
 
 (defn game-won? [board]
-  (or (top-row-the-winner? board) (middle-row-the-winner? board) (bottom-row-the-winner? board) (left-column-winner? board) (middle-column-winner? board)))
+  (or (top-row-the-winner? board) (middle-row-the-winner? board) (bottom-row-the-winner? board) (left-column-winner? board) (middle-column-winner? board) (right-column-winner? board)))
 
 (defn game-over? [board]
   (if (board-empty? board)
