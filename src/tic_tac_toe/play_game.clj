@@ -3,11 +3,5 @@
 (use '[tic-tac-toe.board :as board])
 
 (defn -main []
- ; (print-welcome-message) (print-empty-board) (ask-for-move) (print-board (board/make-move ["-" "-" "-" "-" "-" "-" "-" "-" "-"] (get-move) "X")))
-(print-welcome-message)
-(print-empty-board)
-  (loop  [] )
-  (not (board/game-over?)
-    (ask-for-move)
-       (print-board ))
+  (print-welcome-message) (print-empty-board) (ask-for-move) (print-board (board/make-move ["-" "-" "-" "-" "-" "-" "-" "-" "-"] (get-move) "X")))
   )

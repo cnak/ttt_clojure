@@ -1,13 +1,15 @@
 (ns tic-tac-toe.board)
 
+(def empty-mark "-")
+
 (defn- empty-cell? [cell]
-  (= "-" cell))
+  (= empty-mark cell))
 
 (defn- get-cells [board positions]
   (mapv board positions))
 
 (defn- contains-blank-cell? [board]
-  (if (some #(= "-" %) board) true false))
+  (if (some #(= empty-mark %) board) true false))
 
 (defn- cells-the-same? [row board]
   (if (contains-blank-cell? (row board)) 
@@ -39,7 +41,7 @@
   (cells-the-same? #(get-cells % [2 4 6])board))
 
 (defn- board-empty? [board]
-  (every? #{"-"} board))
+  (every? #{empty-mark} board))
 
 (defn- valid-location? [location board] 
   (<= location (- (count board) 1)))
@@ -51,7 +53,7 @@
   (if (valid-location? location board)
     (assoc board location mark) board))
 
-(defn empty-board [] (repeat 9 "-"))
+(defn empty-board [] (repeat 9 empty-mark))
 
 (defn game-won? [board]
   (or (top-row-the-winner? board) (middle-row-the-winner? board) (bottom-row-the-winner? board) 
@@ -65,4 +67,13 @@
 
 (defn game-over? [board]
   (or (game-won? board) (game-drawn? board)))
+
+(defn- number-of-moves-made [board]
+  (count (filter #(not= % empty-mark) board)))
+
+(defn- player-one-turn? [board]
+  (even? (number-of-moves-made board)))
+
+(defn current-player [board]
+  (if (player-one-turn? board) "X" "O"))
 

@@ -136,5 +136,19 @@
              (game-drawn? 
                ["X" "O" "X" 
                 "O" "X" "O"
-                "-" "-" "X"])))
-  )
+                "-" "-" "X"]))))
+
+(describe "Switch player"
+  (it "current player X on first move"
+    (should= "X"
+             (current-player 
+               ["-" "-" "-" 
+                "-" "-" "-"
+                "-" "-" "-"])))
+  (it "should switch current player O on second move"
+    (should= "O"
+             (current-player 
+               ["-" "-" "X" 
+                "-" "-" "-"
+                "-" "-" "-"])))
+)
