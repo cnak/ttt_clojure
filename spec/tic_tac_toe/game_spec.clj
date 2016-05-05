@@ -4,10 +4,11 @@
 
 (def empty-board ["-" "-" "-" "-" "-" "-" "-" "-" "-"])
 (def welcome-message "\nWelcome to Tic Tac Toe\n" )
+(def empty-board-message "- - -\n- - -\n- - -\n")
 (def enter-move-message "Enter a move\n" )
 (def winning-sequence "X - -\n- - -\n- - -\nX O -\n- - -\n- - -\nX O X\n- - -\n- - -\nX O X\nO - -\n- - -\nX O X\nO X -\n- - -\nX O X\nO X O\n- - -\nX O X\nO X O\nX - -\nX O X\nO X O\nX - -\n")
 
-(def entire-game-sequence (str welcome-message enter-move-message winning-sequence))
+(def entire-game-sequence (str welcome-message empty-board-message enter-move-message winning-sequence))
 
 (defn create-input [inputs]
   (apply str (interleave inputs (repeat "\n"))))
