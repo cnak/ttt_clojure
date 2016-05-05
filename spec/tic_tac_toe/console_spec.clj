@@ -15,7 +15,7 @@
   (it "gets player's move"
     (should= 2 
              (with-in-str "3"
-               (get-move))))
+               (get-move-choice))))
   ) 
 (describe "start game"
   (it "prints a welcome message"

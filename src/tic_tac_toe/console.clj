@@ -15,7 +15,7 @@
 (defn ask-for-move []
   (display-to-console "Enter a move\n"))
 
-(defn get-move []
+(defn get-move-choice []
   (- (read-string (flush) (read-line)) 1))
 
 (defn print-welcome-message []
