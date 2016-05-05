@@ -7,13 +7,13 @@
 (defn play-turn [board]
   (let [next-state-board (board/make-move board (console/get-move-choice) 
                                           (board/current-player board))]
+    (console/print-board next-state-board)
     (if (board/game-over? next-state-board)
-      next-state-board
+      (console/print-board next-state-board)
       (recur next-state-board))))
 
 (defn play-game []
   (console/print-welcome-message)
   (console/ask-for-move)
-  (console/print-board (play-turn a-empty-board))
-  )
+  (play-turn a-empty-board))
 
