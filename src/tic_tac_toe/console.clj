@@ -22,3 +22,11 @@
 (def welcome-message "\nWelcome to Tic Tac Toe\n")
 (defn print-welcome-message []
   (display-to-console welcome-message))
+
+(defn print-result [result]
+  (if (= result "-")
+    (display-to-console "\nDraw!\n")
+    (if (= result "X")
+      (display-to-console "\nX wins\n")
+      (display-to-console "\nO wins\n")
+      )))
