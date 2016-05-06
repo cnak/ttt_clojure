@@ -23,9 +23,13 @@
       (should (boolean (re-find #"\nEnter a move\n"
                                 (str (with-out-str (play-game))))))))
 
-  (it "prints the winner" 
+  (it "prints X as winner" 
     (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
       (should (boolean (re-find #"\nX wins\n"
+                                (str (with-out-str (play-game))))))))
+  (it "prints O as winner" 
+    (with-in-str (create-input '("1" "2" "3" "5" "4" "8"))
+      (should (boolean (re-find #"\nO wins\n"
                                 (str (with-out-str (play-game))))))))
 
   (it "prints board on each turn"
