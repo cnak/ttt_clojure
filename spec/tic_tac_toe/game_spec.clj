@@ -14,14 +14,23 @@
   (apply str (interleave inputs (repeat "\n"))))
 
 (describe "a multiple turn game"
-  (it "welcomes and asks for move" 
+  (it "welcomes the user" 
     (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
-      (should= entire-game-sequence 
-               (with-out-str (play-game)))))
+      (should (boolean (re-find #"\nWelcome to Tic Tac Toe\n"
+                                (str (with-out-str (play-game))))))))
+  (it "asks the user for move" 
+    (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
+      (should (boolean (re-find #"\nEnter a move\n"
+                                (str (with-out-str (play-game))))))))
+
+  (it "prints the winner" 
+    (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
+      (should (boolean (re-find #"X wins"
+                                (str (with-out-str (play-turn empty-board))))))))
 
   (it "prints board on each turn"
     (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
       (should (boolean (re-find #"X O -"
-                          (str (with-out-str (play-turn empty-board)))
-                          ))))))
+                                (str (with-out-str (play-turn empty-board)))
+                                ))))))
 

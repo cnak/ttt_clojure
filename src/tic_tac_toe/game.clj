@@ -9,12 +9,13 @@
                                           (board/current-player board))]
     (console/print-board next-state-board)
     (if (board/game-over? next-state-board)
-      (console/print-board next-state-board)
+      next-state-board 
       (recur next-state-board))))
 
 (defn play-game []
   (console/print-welcome-message)
   (console/print-board a-empty-board)
   (console/ask-for-move)
-  (play-turn a-empty-board))
+  (play-turn a-empty-board)
+  )
 
