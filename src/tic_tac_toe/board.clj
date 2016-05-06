@@ -78,5 +78,7 @@
   (if (player-one-turn? board) "X" "O"))
 
 (defn winner [board]
-  (if (= (current-player board) "O") "X" "O"))
+  (if (game-drawn? board)
+    "-"
+  (if (= (current-player board) "O") "X" "O")))
 

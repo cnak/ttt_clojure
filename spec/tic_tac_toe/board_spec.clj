@@ -166,4 +166,10 @@
                ["X" "X" "O" 
                 "X" "O" "-"
                 "O" "-" "-"])))
+  (it "returns - for draw"
+    (should= "-"
+             (winner 
+               ["X" "X" "O" 
+                "O" "O" "X"
+                "X" "X" "O"])))
    )
