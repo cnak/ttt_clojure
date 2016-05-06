@@ -62,7 +62,8 @@
       (diagonal-top-right-winner? board)))
 
 (defn game-drawn? [board]
-  (or (game-won? board) (board-full? board)))
+  (if (game-won? board) false
+    (if (board-full? board) true false)))
 
 (defn game-over? [board]
   (or (game-won? board) (game-drawn? board)))

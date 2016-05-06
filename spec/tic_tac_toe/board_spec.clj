@@ -132,7 +132,7 @@
                 "O" "X" "O"
                 "O" "X" "O"])))
   (it "should return false when game is won"
-    (should= true
+    (should= false
              (game-drawn? 
                ["X" "O" "X" 
                 "O" "X" "O"
