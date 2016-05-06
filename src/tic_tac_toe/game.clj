@@ -16,6 +16,6 @@
   (console/print-welcome-message)
   (console/print-board a-empty-board)
   (console/ask-for-move)
-  (play-turn a-empty-board)
+  (console/print-result (board/winner (play-turn a-empty-board))) 
   )
 
