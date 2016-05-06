@@ -61,7 +61,6 @@
       (diagonal-top-left-winner? board)
       (diagonal-top-right-winner? board)))
 
-
 (defn game-drawn? [board]
   (or (game-won? board) (board-full? board)))
 
@@ -76,4 +75,7 @@
 
 (defn current-player [board]
   (if (player-one-turn? board) "X" "O"))
+
+(defn winner [board]
+  (if (= (current-player board) "O") "X" "O"))
 

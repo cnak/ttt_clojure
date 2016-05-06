@@ -152,3 +152,18 @@
                 "-" "-" "-"
                 "-" "-" "-"])))
 )
+
+ (describe "Game Result"
+  (it "returns X as winner"
+    (should= "X"
+             (winner 
+               ["X" "X" "X" 
+                "-" "-" "-"
+                "-" "-" "-"])))
+  (it "returns O as winner"
+    (should= "O"
+             (winner 
+               ["X" "X" "O" 
+                "X" "O" "-"
+                "O" "-" "-"])))
+   )
