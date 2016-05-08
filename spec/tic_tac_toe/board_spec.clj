@@ -15,9 +15,12 @@
   (it "makes a move in the top right"
     (should= ["-" "-" "-" "-" "X" "-" "-" "-" "O"]
              (make-move ["-" "-" "-" "-" "X" "-" "-" "-" "-" ] 8 "O") ))
-  (it "doesn't make an invalid move"
+  (it "doesn't make an invalid out of bound move"
     (should= ["-" "-" "-" "-" "X" "-" "-" "-" "-"]
              (make-move ["-" "-" "-" "-" "X" "-" "-" "-" "-" ] 9 "O") ) )
+  ; (it "doesn't make a move on an occupied position"
+  ;   (should= ["-" "-" "-" "-" "X" "-" "-" "-" "-"]
+  ;            (make-move ["-" "-" "-" "-" "X" "-" "-" "-" "-" ] 6 "O") ) )
   )
 
 (describe "Game over"
