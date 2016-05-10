@@ -30,3 +30,18 @@
       (display-to-console "\nX wins\n")
       (display-to-console "\nO wins\n")
       )))
+
+(def menu (str "\n1. Human vs Human\n" "\n2. Human vs Computer\n" "\n3. Computer vs Computer\n"))
+
+(defn print-menu [] 
+  (display-to-console menu))
+
+(defn read-console []
+  (read-string (flush) (read-line)))
+
+(defn get-game-choice [] 
+  (let [choice (read-console)]
+    (cond 
+      (= 1 choice) :humanVhuman 
+      (= 2 choice) :humanVcomputer 
+      (= 3 choice) :computerVcomputer)))
