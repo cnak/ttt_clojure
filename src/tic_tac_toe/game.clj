@@ -12,15 +12,14 @@
       next-state-board 
       (recur next-state-board))))
 
-(defn play-game []
+(defn start []
   (console/print-welcome-message)
   (console/print-menu)
+  (console/get-game-choice)
+  )
+
+(defn play-game []
   (console/print-board a-empty-board)
   (console/ask-for-move)
   (console/print-result (board/winner (play-turn a-empty-board))) 
-  )
-
-(defn game-setup []
-  (console/print-menu)
-  (console/get-game-choice)
   )

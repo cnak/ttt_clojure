@@ -13,11 +13,16 @@
 (defn X-winner-game-input [] (create-input '("1" "2" "3" "4" "5" "6" "7")))
 (def m)
 
-(describe "a multiple turn game"
+(describe "start of app"
   (it "welcomes the user" 
     (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
-      (should-invoke console/print-welcome-message {:times 1} (play-game))  
+      (should-invoke console/print-welcome-message {:times 1} (start))  
       ))
+  (it "prints game options"
+     (with-in-str "1\n"
+    (should-invoke console/print-menu {:times 1} (start)))))
+
+(describe "a multiple turn game"
   (it "asks the user for move" 
     (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
       (should-invoke console/ask-for-move {:times 1} (play-game))))
@@ -39,9 +44,6 @@
                                 (str (with-out-str (play-turn empty-board)))
                                 ))))))
 (describe "game setup"
-  (it "prints game options"
-    (should-invoke console/print-menu {:times 1} (game-setup)))
-
   (it "asks for game type" 
-    (should-invoke console/get-game-choice {:times 1} (game-setup))))
-
+    (with-in-str "1\n"
+      (should-invoke console/get-game-choice {:times 1} (start)))))
