@@ -12,11 +12,21 @@
 (defn print-board [board] 
   (print-row board first) (print-row board second) (print-row board last))
 
+(def ask-for-move-message "Enter a move\n")
 (defn ask-for-move []
-  (display-to-console "Enter a move\n"))
+  (display-to-console ask-for-move-message))
 
-(defn get-move []
+(defn get-move-choice []
   (- (read-string (flush) (read-line)) 1))
 
+(def welcome-message "\nWelcome to Tic Tac Toe\n")
 (defn print-welcome-message []
-  (display-to-console "\nWelcome to Tic Tac Toe\n"))
+  (display-to-console welcome-message))
+
+(defn print-result [result]
+  (if (= result "-")
+    (display-to-console "\nDraw!\n")
+    (if (= result "X")
+      (display-to-console "\nX wins\n")
+      (display-to-console "\nO wins\n")
+      )))

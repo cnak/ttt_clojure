@@ -15,10 +15,23 @@
   (it "gets player's move"
     (should= 2 
              (with-in-str "3"
-               (get-move))))
+               (get-move-choice))))
   ) 
 (describe "start game"
   (it "prints a welcome message"
     (should= "\nWelcome to Tic Tac Toe\n" 
              (with-out-str (print-welcome-message) )))
   )
+
+(describe "print result"
+  (it "prints X as the winner"
+    (should= "\nX wins\n" 
+             (with-out-str (print-result "X") )))
+  (it "prints O as the winner"
+    (should= "\nO wins\n" 
+             (with-out-str (print-result "O") )))
+  (it "prints draw result"
+    (should= "\nDraw!\n" 
+             (with-out-str (print-result "-") )))
+  )
+
