@@ -14,6 +14,7 @@
 
 (defn play-game []
   (console/print-welcome-message)
+  (console/print-menu)
   (console/print-board a-empty-board)
   (console/ask-for-move)
   (console/print-result (board/winner (play-turn a-empty-board))) 
