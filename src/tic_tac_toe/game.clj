@@ -20,3 +20,7 @@
   (console/print-result (board/winner (play-turn a-empty-board))) 
   )
 
+(defn game-setup []
+  (console/print-menu)
+  (console/get-game-choice)
+  )

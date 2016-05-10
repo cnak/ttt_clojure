@@ -1,8 +1,7 @@
 (ns tic-tac-toe.game-spec
   (:require [speclj.core :refer :all]
             [tic-tac-toe.game :refer :all]
-            [tic-tac-toe.console :as console]
-            ))
+            [tic-tac-toe.console :as console]))
 
 (def empty-board ["-" "-" "-" "-" "-" "-" "-" "-" "-"])
 
@@ -17,29 +16,32 @@
 (describe "a multiple turn game"
   (it "welcomes the user" 
     (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
-    (should-invoke console/print-welcome-message {:times 1} (play-game))  
+      (should-invoke console/print-welcome-message {:times 1} (play-game))  
       ))
-  (it "prints menu options" 
-   (with-in-str (X-winner-game-input)
-    (should-invoke console/print-menu {:times 1} (play-game))))
-(it "asks the user for move" 
-  (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
-    (should-invoke console/ask-for-move {:times 1} (play-game))))
-(it "prints X as winner" 
-  (with-in-str (X-winner-game-input)
-    (should (boolean (re-find #"\nX wins\n"
-                              (str (with-out-str (play-game))))))))
-(it "prints O as winner" 
-  (with-in-str (O-winner-game-input)
-    (should (boolean (re-find #"\nO wins\n"
-                              (str (with-out-str (play-game))))))))
-(it "prints Draw! for drawn game" 
-  (with-in-str (drawn-game-input)
-    (should (boolean (re-find #"\nDraw!\n"
-                              (str (with-out-str (play-game))))))))
-(it "prints board on each turn"
-  (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "8" "7" "9"))
-    (should (boolean (re-find #"X O -"
-                              (str (with-out-str (play-turn empty-board)))
-                              ))))))
+  (it "asks the user for move" 
+    (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
+      (should-invoke console/ask-for-move {:times 1} (play-game))))
+  (it "prints X as winner" 
+    (with-in-str (X-winner-game-input)
+      (should (boolean (re-find #"\nX wins\n"
+                                (str (with-out-str (play-game))))))))
+  (it "prints O as winner" 
+    (with-in-str (O-winner-game-input)
+      (should (boolean (re-find #"\nO wins\n"
+                                (str (with-out-str (play-game))))))))
+  (it "prints Draw! for drawn game" 
+    (with-in-str (drawn-game-input)
+      (should (boolean (re-find #"\nDraw!\n"
+                                (str (with-out-str (play-game))))))))
+  (it "prints board on each turn"
+    (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "8" "7" "9"))
+      (should (boolean (re-find #"X O -"
+                                (str (with-out-str (play-turn empty-board)))
+                                ))))))
+(describe "game setup"
+  (it "prints game options"
+    (should-invoke console/print-menu {:times 1} (game-setup)))
+
+  (it "asks for game type" 
+    (should-invoke console/get-game-choice {:times 1} (game-setup))))
 
