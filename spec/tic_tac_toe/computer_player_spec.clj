@@ -4,7 +4,7 @@
             [tic-tac-toe.player :as player]))
 
 (defn get-computer-move [board]
-  (player/get-move {:player_type :computer} board))
+  (player/get-move {:type-of-player :computer} board))
 
 (describe "random move"
   (it "picks a last remaining space for a move"

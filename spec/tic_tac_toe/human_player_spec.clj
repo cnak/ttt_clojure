@@ -6,7 +6,7 @@
 (def a-empty-board 
       ["-" "-" "-" "-" "-" "-" "-" "-" "-"])
 (defn get-human-move []
-  (player/get-move {:player_type :human} a-empty-board))
+  (player/get-move {:type-of-player :human} a-empty-board))
 
 (describe "a placed move"
   (it "picks 5 as an input and returns 4"
