@@ -8,12 +8,12 @@
 
 (describe "random move"
   (it "picks a last remaining space for a move"
-    (should= 9 (get-computer-move ["X" "O" "X"
+    (should= 8 (get-computer-move ["X" "O" "X"
                                    "O" "X" "O"
                                    "O" "X" "-"
                                    ])))
   (it "picks a first available space for a move"
-    (should= 2 (get-computer-move ["X" "-" "-"
+    (should= 1 (get-computer-move ["X" "-" "-"
                                    "-" "-" "-"
                                    "-" "-" "-"
                                    ])))

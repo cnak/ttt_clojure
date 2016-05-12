@@ -3,7 +3,7 @@
             [tic-tac-toe.board :as board-logic]))
 
 (defn- move [board]
-  (inc (first (board-logic/remaining-moves board))))
+  (first (board-logic/remaining-moves board)))
 
 (defmethod player/get-move :computer [_ board]
   (move board))
