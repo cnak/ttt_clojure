@@ -48,6 +48,9 @@
 
 (defn empty-board [] (repeat 9 empty-mark))
 
+(defn remaining-moves [board]
+  (let [predicate #(= "-" %) newboard board] (keep-indexed (fn [i x] (when (predicate x) i))newboard)))
+
 (defn game-won? [board]
   (winner? board))
 
