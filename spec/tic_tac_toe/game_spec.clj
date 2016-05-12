@@ -21,9 +21,7 @@
     (with-in-str (create-input '("1" "2" "3" "4" "5" "6" "7"))
       (should-invoke console/print-welcome-message {:times 1} (start))  
       ))
-  (it "prints game options"
-    (with-in-str "1\n"
-      (should-invoke console/print-menu {:times 1} (start)))))
+  )
 
 (describe "a multiple turn game"
   (it "asks the user for move" 
@@ -47,15 +45,21 @@
                                 (str (with-out-str (play-turn empty-board humanVhuman-players)))
                                 ))))))
 (describe "game setup"
+  (it "prints game options"
+    (with-in-str "1\n"
+      (should-invoke console/print-menu {:times 1} (start)))) 
   (it "asks for game type" 
     (with-in-str "1\n"
       (should-invoke console/get-game-choice {:times 1} (start))))
+  )
+
+(describe "different types of game"
   (it "plays a human v computer game" 
     (with-in-str (create-input '("1" "3" "5" "7"))
       (should (boolean (re-find #"\nX wins\n"
                                 (str (with-out-str (play-game humanVcomputer-players)))))))
-   (it "plays a computer v computer game" 
+    (it "plays a computer v computer game" 
       (should (boolean (re-find #"\nO wins\n"
                                 (str (with-out-str (play-game computerVcomputer-players)))))))
-    
+
     ))

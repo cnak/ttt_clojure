@@ -4,10 +4,10 @@
 
 (describe "setup players"
   (it "setups player 1"
-    (should= {:player1 :human :player2 :human} (setup-game-type :humanVhuman)))
+    (should= [:human :human] (setup-game-type :humanVhuman)))
   (it "setups human v computer"
-    (should= {:player1 :human :player2 :computer} (setup-game-type :humanVcomputer)))
+    (should= [:human :computer] (setup-game-type :humanVcomputer)))
   (it "setups computer v computer"
-    (should= {:player1 :computer :player2 :computer} (setup-game-type :computerVcomputer)))
+    (should= [:computer :computer] (setup-game-type :computerVcomputer)))
   )
 
