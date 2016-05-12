@@ -64,7 +64,7 @@
 (defn- number-of-moves-made [board]
   (count (filter #(not= % empty-mark) board)))
 
-(defn- player-one-turn? [board]
+(defn player-one-turn? [board]
   (even? (number-of-moves-made board)))
 
 (defn current-player [board]
