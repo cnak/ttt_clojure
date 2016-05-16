@@ -1,9 +1,9 @@
 (ns tic-tac-toe.game
   (:require [tic-tac-toe.console :as console]
             [tic-tac-toe.board :as board]
+            [tic-tac-toe.player :as player]
             [tic-tac-toe.human-player :as human]
             [tic-tac-toe.computer-player :as computer]
-            [tic-tac-toe.player :as player]
             [tic-tac-toe.game-setup :as setup-game]
             ))
 

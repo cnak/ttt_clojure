@@ -44,14 +44,16 @@
       (should (boolean (re-find #"X O -"
                                 (str (with-out-str (play-turn empty-board humanVhuman-players)))
                                 ))))))
+(def players [:human :computer])
 (describe "game setup"
   (it "prints game options"
-    (with-in-str "1\n"
-      (should-invoke console/print-menu {:times 1} (start)))) 
+    (with-in-str (create-input '("1"))
+      (with-redefs [play-game (stub players)]
+        (should-invoke console/print-menu {:times 1} (start))))) 
   (it "asks for game type" 
     (with-in-str "1\n"
-      (should-invoke console/get-game-choice {:times 1} (start))))
-  )
+      (with-redefs [play-game (stub players)]
+        (should-invoke console/get-game-choice {:times 1} (start))))))
 
 (describe "different types of game"
   (it "plays a human v computer game" 
@@ -60,6 +62,4 @@
                                 (str (with-out-str (play-game humanVcomputer-players)))))))
     (it "plays a computer v computer game" 
       (should (boolean (re-find #"\nO wins\n"
-                                (str (with-out-str (play-game computerVcomputer-players)))))))
-
-    ))
+                                (str (with-out-str (play-game computerVcomputer-players)))))))))
