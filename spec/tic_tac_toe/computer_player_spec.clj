@@ -8,17 +8,6 @@
 (defn get-computer-move [board]
   (player/get-move {:type-of-player :computer} board))
 
-(describe "random move"
-  (it "picks a last remaining space for a move"
-    (should= 8 (get-computer-move ["X" "O" "X"
-                                   "O" "X" "O"
-                                   "O" "X" "-"
-                                   ])))
-  (it "picks a first available space for a move"
-    (should= 1 (get-computer-move ["X" "-" "-"
-                                   "-" "-" "-"
-                                   "-" "-" "-"
-                                   ]))))
 (def winning-board
   ["O" "X" "X" 
    "O" "O" "X"
@@ -34,7 +23,26 @@
    "X" "O" "-"
    "-" "-" "O"])
 
-(describe "score"
+(def possible-winning-board 
+  ["X" "X" "-"
+   "O" "O" "X"
+   "X" "X" "O"
+   ])
+
+(def losing-board
+  ["X" "X" "O"
+   "X" "X" "-"
+   "O" "-" "O"
+   ])
+
+(describe "ai picks best move"
+  (it "scores incomplete board"
+    (should= 10 (inter-score possible-winning-board "X")))
+  (it "scores losing board"
+    (should= -10 (inter-score losing-board "X")))
+  )
+
+(describe "final-score"
   (it "scores 10 for a winning move"
     (should= 10 (score winning-board "X")))
   (it "scores 0 for a draw game"
