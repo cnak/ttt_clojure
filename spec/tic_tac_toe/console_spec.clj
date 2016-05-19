@@ -2,13 +2,22 @@
   (:require [speclj.core :refer :all]
             [tic-tac-toe.console :refer :all]))
 
+(def board-four-by-four 
+  (repeat 16 "-")) 
+
 (describe "printing board"
+  (it "prints a 4x4 empty board"
+    (should= "- - - -\n- - - -\n- - - -\n- - - -\n" 
+             (with-out-str (print-board board-four-by-four ))))
+
   (it "prints an empty board"
     (should= "- - -\n- - -\n- - -\n" 
              (with-out-str (print-empty-board))))
   (it "prints a board with a move"
     (should= "- - -\n- X -\n- - -\n" 
-             (with-out-str (print-board ["-" "-" "-" "-" "X" "-" "-" "-" "-"]) )))
+             (with-out-str (print-board ["-" "-" "-" 
+                                         "-" "X" "-"
+                                         "-" "-" "-"]) )))
   (it "asks for a move"
     (should= "Enter a move\n" 
              (with-out-str (ask-for-move))))

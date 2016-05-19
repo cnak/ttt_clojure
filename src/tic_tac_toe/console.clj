@@ -6,11 +6,24 @@
 (defn print-empty-board []
   (display-to-console "- - -\n- - -\n- - -\n"))
 
-(defn- print-row [board row]
-  (apply println (row (partition 3 board))))
+(defn- print-row [board row splits]
+  (apply println (nth (partition splits board) row)))
+
+(defn- print3x3 [board]
+  (print-row board 0 3)
+  (print-row board 1 3)
+  (print-row board 2 3))
+
+(defn- print4x4 [board]
+  (print-row board 0 4)
+  (print-row board 1 4)
+  (print-row board 2 4)
+  (print-row board 3 4)) 
 
 (defn print-board [board] 
-  (print-row board first) (print-row board second) (print-row board last))
+  (if (= 9 (count board))
+    (print3x3 board)
+    (print4x4 board)))
 
 (def ask-for-move-message "Enter a move\n")
 (defn ask-for-move []
@@ -50,12 +63,12 @@
 
 (defn get-game-choice []
   (let [choice (read-console)]
-   (cond 
-     (= 1 choice) [:human :human]
-     (= 2 choice) [:human :computer]
-     (= 3 choice) [:computer :computer])))
+    (cond 
+      (= 1 choice) [:human :human]
+      (= 2 choice) [:human :computer]
+      (= 3 choice) [:computer :computer])))
 
 (defn get-game-type []
   (let [game-type (get-game-choice) board-size (get-board-size-choice)]
     (conj [] game-type board-size)
-  ))
+    ))
