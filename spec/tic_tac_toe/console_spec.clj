@@ -2,10 +2,24 @@
   (:require [speclj.core :refer :all]
             [tic-tac-toe.console :refer :all]))
 
+(describe "board size options"
+  (it "asks the board size"
+    (should= "\nWhich board size? \n 1. 3x3\n 2. 4x4"
+             (with-out-str (ask-board-size))))
+  (it "takes board size choice for 4x4"
+    (should= :3x3 
+             (with-in-str "1"
+               (get-board-size-choice))))
+  (it "takes board size choice for 4x4"
+    (should= :4x4 
+             (with-in-str "2"
+               (get-board-size-choice))))
+  )
+
 (describe "printing board"
   (it "prints an empty board"
     (should= "- - -\n- - -\n- - -\n" 
-             (with-out-str (print-empty-board) )))
+             (with-out-str (print-empty-board))))
   (it "prints a board with a move"
     (should= "- - -\n- X -\n- - -\n" 
              (with-out-str (print-board ["-" "-" "-" "-" "X" "-" "-" "-" "-"]) )))
