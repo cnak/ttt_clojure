@@ -53,17 +53,17 @@
   (it "prints menu options"
     (should= (str "\n1. Human vs Human\n" "\n2. Human vs Computer\n" "\n3. Computer vs Computer\n")
              (with-out-str (print-menu))))
-  (it "gets a human v human game choice"
-    (should= :humanVhuman 
-             (with-in-str "1"
-               (get-game-choice))))
-  (it "gets a human v computer game choice"
-    (should= :humanVcomputer 
-             (with-in-str "2"
-               (get-game-choice))))
-  (it "gets a computer v computer game choice"
-    (should= :computerVcomputer 
-             (with-in-str "3"
-               (get-game-choice))))
+  (it "gets a human v human game with 3x3 board"
+    (should= [:humanVhuman :3x3] 
+             (with-in-str "1\n1"
+               (get-game-type))))
+  (it "gets a human v computer game choice with 4x4 board"
+    (should= [:humanVcomputer :4x4] 
+             (with-in-str "2\n2\n"
+               (get-game-type))))
+  (it "gets a computer v computer game choice with 3x3"
+    (should= [:computerVcomputer :3x3] 
+             (with-in-str "3\n1\n"
+               (get-game-type))))
   )
 

@@ -36,12 +36,6 @@
 
 (defn- read-console []
   (read-string (flush) (read-line)))
-(defn get-game-choice [] 
-  (let [choice (read-console)]
-    (cond 
-      (= 1 choice) :humanVhuman 
-      (= 2 choice) :humanVcomputer 
-      (= 3 choice) :computerVcomputer)))
 
 (def board-size-question "\nWhich board size? \n 1. 3x3\n 2. 4x4")
 (defn  ask-board-size []
@@ -52,3 +46,15 @@
     (cond 
       (= 1 choice) :3x3 
       (= 2 choice) :4x4)))
+
+(defn get-game-choice [] 
+  (let [choice (read-console)]
+    (cond 
+      (= 1 choice) :humanVhuman 
+      (= 2 choice) :humanVcomputer 
+      (= 3 choice) :computerVcomputer)))
+
+(defn get-game-type []
+  (let [game-type (get-game-choice) board-size (get-board-size-choice)]
+    (conj [] game-type board-size)
+  ))

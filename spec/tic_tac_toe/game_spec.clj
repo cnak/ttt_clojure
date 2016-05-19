@@ -46,6 +46,10 @@
                                 ))))))
 (def players [:human :computer])
 (describe "game setup"
+  (xit "asks for board size" 
+    (with-in-str "1\n"
+      (with-redefs [play-game (stub players)]
+        (should-invoke console/get-board-size-choice {:times 1} (start))))) 
   (it "prints game options"
     (with-in-str (create-input '("1"))
       (with-redefs [play-game (stub players)]
