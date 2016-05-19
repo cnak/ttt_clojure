@@ -37,7 +37,7 @@
 (defn- read-console []
   (read-string (flush) (read-line)))
 
-(def board-size-question "\nWhich board size? \n 1. 3x3\n 2. 4x4\n")
+(def board-size-question "\nWhich board size?\n1. 3x3\n2. 4x4\n")
 (defn  ask-board-size []
   (display-to-console board-size-question))
 

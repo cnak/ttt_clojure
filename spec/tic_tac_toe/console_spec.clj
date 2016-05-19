@@ -54,7 +54,7 @@
   )
 (describe "board size options"
   (it "asks the board size"
-    (should= "\nWhich board size? \n 1. 3x3\n 2. 4x4\n"
+    (should= "\nWhich board size?\n1. 3x3\n2. 4x4\n"
              (with-in-str "1"
              (with-out-str (get-board-size-choice)))))
   (it "takes board size choice for 4x4"

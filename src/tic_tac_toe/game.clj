@@ -34,11 +34,11 @@
       next-state-board 
       (recur next-state-board players))))
 
-(defn play-game [players]
-  (console/print-board (get-empty-board (second players)))
+(defn play-game [options]
+  (console/print-board (get-empty-board (second options)))
   (console/ask-for-move)
-  (console/print-result (board/winner (play-turn (get-empty-board (second players)) 
-                                                 (first players)))) 
+  (console/print-result (board/winner (play-turn (get-empty-board (second options)) 
+                                                 (first options)))) 
   )
 
 (defn start []
