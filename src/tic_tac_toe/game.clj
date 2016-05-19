@@ -16,7 +16,7 @@
 (defn get-empty-board [board-size]
   (if (= board-size :4x4)
     fourbyfour-empty-board 
-    a-empty-board ))
+    a-empty-board))
 
 (defn get-player-move [player1 player2 board]
   (if (board/player-one-turn? board) 
