@@ -35,3 +35,21 @@
              (with-out-str (print-result "-") )))
   )
 
+(describe "menu options"
+  (it "prints menu options"
+    (should= (str "\n1. Human vs Human\n" "\n2. Human vs Computer\n" "\n3. Computer vs Computer\n")
+             (with-out-str (print-menu))))
+  (it "gets a human v human game choice"
+    (should= :humanVhuman 
+             (with-in-str "1"
+               (get-game-choice))))
+  (it "gets a human v computer game choice"
+    (should= :humanVcomputer 
+             (with-in-str "2"
+               (get-game-choice))))
+  (it "gets a computer v computer game choice"
+    (should= :computerVcomputer 
+             (with-in-str "3"
+               (get-game-choice))))
+  )
+

@@ -5,6 +5,19 @@
 (def a-empty-board 
       ["-" "-" "-" "-" "-" "-" "-" "-" "-"])
 
+(describe "remaining moves"
+  (it "returns 0 as remaining move"
+    (should= '(0 1 2 3 4 5 6 7 8) (remaining-moves a-empty-board)))
+  (it "returns 4 as remaining move"
+    (should= '(4) (remaining-moves ["O" "O" "X" 
+                                 "X" "-" "O"
+                                 "O" "O" "X"])))
+  (it "returns no remaining move"
+    (should= '() (remaining-moves ["O" "O" "X" 
+                                   "X" "X" "O"
+                                   "O" "O" "X"])))
+  )
+
 (describe "a board"
   (it "returns an empty board"
     (should= a-empty-board
@@ -18,9 +31,6 @@
   (it "doesn't make an invalid out of bound move"
     (should= ["-" "-" "-" "-" "X" "-" "-" "-" "-"]
              (make-move ["-" "-" "-" "-" "X" "-" "-" "-" "-" ] 9 "O") ) )
-  ; (it "doesn't make a move on an occupied position"
-  ;   (should= ["-" "-" "-" "-" "X" "-" "-" "-" "-"]
-  ;            (make-move ["-" "-" "-" "-" "X" "-" "-" "-" "-" ] 6 "O") ) )
   )
 
 (describe "Game over"

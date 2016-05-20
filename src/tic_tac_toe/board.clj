@@ -48,6 +48,9 @@
 
 (defn empty-board [] (repeat 9 empty-mark))
 
+(defn remaining-moves [board]
+  (let [predicate #(= empty-mark %) newboard board] (keep-indexed (fn [i x] (when (predicate x) i))newboard)))
+
 (defn game-won? [board]
   (winner? board))
 
@@ -61,7 +64,7 @@
 (defn- number-of-moves-made [board]
   (count (filter #(not= % empty-mark) board)))
 
-(defn- player-one-turn? [board]
+(defn player-one-turn? [board]
   (even? (number-of-moves-made board)))
 
 (defn current-player [board]

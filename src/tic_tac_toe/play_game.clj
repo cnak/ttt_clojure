@@ -2,4 +2,4 @@
 (use '[tic-tac-toe.game :as game])
 
 (defn -main []
-  (game/play-game))
+  (game/start))

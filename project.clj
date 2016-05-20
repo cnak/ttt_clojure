@@ -6,5 +6,8 @@
   :dependencies [[org.clojure/clojure "1.7.0-RC2"]]
   :main ^:skip-aot tic-tac-toe.play-game
   :profiles {:dev {:dependencies [[speclj "3.3.1"]]}}
-  :plugins [[speclj "3.3.1"]]
+  :plugins [
+            [speclj "3.3.1"]
+            [lein-codox "0.9.5"]
+            ]
   :test-paths ["spec"])
