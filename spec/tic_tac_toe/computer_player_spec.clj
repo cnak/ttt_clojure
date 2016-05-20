@@ -23,25 +23,6 @@
    "X" "O" "-"
    "-" "-" "O"])
 
-(def possible-winning-board 
-  ["X" "X" "-"
-   "O" "O" "X"
-   "X" "X" "O"
-   ])
-
-(def losing-board
-  ["X" "X" "O"
-   "X" "X" "-"
-   "O" "-" "O"
-   ])
-
-(describe "ai picks best move"
-  (it "scores incomplete board"
-    (should= 10 (inter-score possible-winning-board "X")))
-  (it "scores losing board"
-    (should= -10 (inter-score losing-board "X")))
-  )
-
 (describe "final-score"
   (it "scores 10 for a winning move"
     (should= 10 (score winning-board "X")))
@@ -49,4 +30,38 @@
     (should= 0 (score drawn-board "X")))
   (it "scores -10 for a lost game for player X"
     (should= -10 (score lost-board "X"))))
+
+(def possible-winning-board 
+  ["X" "X" "-"
+   "O" "O" "X"
+   "X" "O" "O"
+   ])
+
+(def possible-losing-board
+  ["X" "X" "O"
+   "X" "X" "-"
+   "O" "-" "O"
+   ])
+
+(def possible-drawn-board
+  ["-" "-" "X"
+   "X" "O" "O"
+   "O" "X" "X"
+   ])
+
+(describe "ai picks best move"
+  (it "scores incomplete winning board"
+    (should= 10 (inter-score possible-winning-board "X")))
+  (it "scores incomplete losing board"
+    (should= -10 (inter-score possible-losing-board "X")))
+  (xit "scores incomplete drawn board"
+    (should= 0 (inter-score possible-drawn-board "X")))
+  )
+
+(describe "current mark"
+  (it "return O as current player"
+    (should= "O" (current-mark [1 2])))
+  (it "return X as current player"
+    (should= "X" (current-mark [1])))
+  )
 

@@ -14,17 +14,20 @@
   (score (first boards) mark)
   )
 
+(defn current-mark [moves-left]
+  (if(even? (count moves-left))
+    "O"
+    "X"))
+
 (defn generate-possible-boards [board mark]
   (let [open-spots (board-logic/remaining-moves board)]
     (for [open-spot open-spots]
-      (board-logic/make-move board open-spot mark))
-    ))
+      (board-logic/make-move board open-spot mark))))
 
 (defn inter-score [board mark]
   (if (board-logic/game-over? board)
     (score board mark)
-    (score-multiple (generate-possible-boards board mark) mark)
-    ))
+    (score-multiple (generate-possible-boards board mark) mark)))
 
 (defmethod player/get-move :computer [_ board]
   (move board))
