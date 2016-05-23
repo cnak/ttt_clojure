@@ -34,34 +34,36 @@
 (def possible-winning-board 
   ["X" "X" "-"
    "O" "O" "X"
-   "X" "O" "O"
-   ])
+   "X" "O" "O"])
 
 (def possible-losing-board
   ["X" "X" "O"
    "X" "X" "-"
-   "O" "-" "O"
-   ])
+   "O" "-" "O"])
 
 (def possible-drawn-board
   ["-" "-" "X"
    "X" "O" "O"
-   "O" "X" "X"
-   ])
+   "O" "X" "X"])
+
+; (describe "score-multiple"
+;   (it "returns winning score multoples"
+;     (should= {0 10} (score-multiple (list possible-winning-board) "X"))))
+
 
 (describe "ai picks best move"
   (it "scores incomplete winning board"
     (should= 10 (inter-score possible-winning-board "X")))
   (it "scores incomplete losing board"
     (should= -10 (inter-score possible-losing-board "X")))
-  (xit "scores incomplete drawn board"
+  (it "scores incomplete drawn board"
     (should= 0 (inter-score possible-drawn-board "X")))
   )
 
-(describe "current mark"
-  (it "return O as current player"
-    (should= "O" (current-mark [1 2])))
-  (it "return X as current player"
-    (should= "X" (current-mark [1])))
-  )
+; (describe "current mark"
+;   (it "return O as current player"
+;     (should= "O" (current-mark [1 2])))
+;   (it "return X as current player"
+;     (should= "X" (current-mark [1])))
+;   )
 
