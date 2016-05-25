@@ -46,24 +46,26 @@
    "X" "O" "O"
    "O" "X" "X"])
 
-; (describe "score-multiple"
-;   (it "returns winning score multoples"
-;     (should= {0 10} (score-multiple (list possible-winning-board) "X"))))
+(def winning-board-with-best-move 
+  [2 ["X" "X" "X"
+   "O" "O" "X"
+   "X" "O" "O"]])
 
+(describe "score-multiple"
+  (it "returns winning score multiples"
+    (should= {2 10} (score-multiple-moves winning-board-with-best-move "X"))))
+
+(describe "generate board with moves"
+  (it "returns 2 and final board"
+    (should= [2 ["X" "X" "X"  "O" "O" "X" "X" "O" "O"]]
+    (generate-possible-boards possible-winning-board "X" "O" 2))))
 
 (describe "ai picks best move"
   (it "scores incomplete winning board"
-    (should= 10 (inter-score possible-winning-board "X")))
+    (should= {2 10} (inter-score possible-winning-board "X")))
   (it "scores incomplete losing board"
-    (should= -10 (inter-score possible-losing-board "X")))
+    (should= {5 -10} (inter-score possible-losing-board "X")))
   (it "scores incomplete drawn board"
-    (should= 0 (inter-score possible-drawn-board "X")))
+    (should= {0 0} (inter-score possible-drawn-board "X")))
   )
-
-; (describe "current mark"
-;   (it "return O as current player"
-;     (should= "O" (current-mark [1 2])))
-;   (it "return X as current player"
-;     (should= "X" (current-mark [1])))
-;   )
 
