@@ -61,7 +61,7 @@
 (defn game-over? [board]
   (or (game-won? board) (game-drawn? board)))
 
-(defn- number-of-moves-made [board]
+(defn number-of-moves-made [board]
   (count (filter #(not= % empty-mark) board)))
 
 (defn player-one-turn? [board]
