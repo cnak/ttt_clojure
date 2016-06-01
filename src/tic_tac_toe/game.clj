@@ -8,6 +8,15 @@
             ))
 
 (def a-empty-board ["-" "-" "-" "-" "-" "-" "-" "-" "-"])
+(def fourbyfour-empty-board ["-" "-" "-" "-" 
+                             "-" "-" "-" "-" 
+                             "-" "-" "-" "-" 
+                             "-" "-" "-" "-" 
+                             ])
+(defn get-empty-board [board-size]
+  (if (= board-size :4x4)
+    fourbyfour-empty-board 
+    a-empty-board))
 
 (defn get-player-move [player1 player2 board]
   (if (board/player-one-turn? board) 
@@ -25,14 +34,16 @@
       next-state-board 
       (recur next-state-board players))))
 
-(defn play-game [players]
-  (console/print-board a-empty-board)
+(defn play-game [options]
+  (console/print-board (get-empty-board (second options)))
   (console/ask-for-move)
-  (console/print-result (board/winner (play-turn a-empty-board players))) 
+  (console/print-result (board/winner (play-turn (get-empty-board (second options)) 
+                                                 (first options)))) 
   )
 
 (defn start []
   (console/print-welcome-message)
   (console/print-menu)
-  (play-game (setup-game/setup-players (console/get-game-choice)))
-  )
+  (play-game (console/get-game-type)))
+
+  

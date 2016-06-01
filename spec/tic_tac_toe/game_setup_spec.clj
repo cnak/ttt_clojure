@@ -3,7 +3,7 @@
             [tic-tac-toe.game-setup :refer :all]))
 
 (describe "setup players"
-  (it "setups player 1"
+  (it "setups human v human"
     (should= [:human :human] (setup-players :humanVhuman)))
   (it "setups human v computer"
     (should= [:human :computer] (setup-players :humanVcomputer)))
