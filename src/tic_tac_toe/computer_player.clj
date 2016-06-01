@@ -5,48 +5,28 @@
 (defn- move [board]
   (first (board-logic/remaining-moves board)))
 
-(defn score [board player]
-  (let [winner (board-logic/winner board)]
-    (if (= winner player) 10
-      (if (board-logic/game-drawn? board) 0 -10))))
-
 (defn- switch-player [mark]
   (if (= mark "X") "O" "X"))
 
-(defn score-inter [board player]
+(defn score [board player depth move]
   (let [winner (board-logic/winner board)]
     (cond 
-      (= winner player) 10 
-      (= winner "-") 0
-      (= winner (switch-player player)) -10)))
+      (= winner player) (move (- 100 depth)) 
+      (= winner "-") [move 0]
+      (= winner (switch-player player)) [move (- -100 depth)])))
 
-(defn- get-board [board-score]
- (nth board-score 1))
+(defn get-best-results [moves-scores maximize-player?]
+  (if maximize-player?  
+     (first (sort-by second > moves-scores))
+     (first (sort-by second < moves-scores))))
 
-(defn- get-score  [board-score]
- (nth board-score 0))
-
-(defn score-multiple-moves [boards mark]
-  (assoc {} (get-score boards) (score-inter (get-board boards) mark)))
-
-(defn generate-possible-boards [board current-player other-player first-move]
-  (loop [next-board board moves first-move]
-    (if (board-logic/game-over? next-board)
-      (into [] [first-move next-board]) 
-      (let [open-spots (board-logic/remaining-moves next-board)]
-        (recur (board-logic/make-move next-board (first open-spots) (board-logic/current-player next-board)) (first open-spots)))
-      )))
-
-(defn first-move [board]
-  (first (board-logic/remaining-moves board)))
-
-(defn inter-score [board mark]
+(defn minimax [board current-player depth move perspective]
   (if (board-logic/game-over? board)
-    (score board mark)
-    (score-multiple-moves (generate-possible-boards board mark (switch-player mark) (first-move board)) mark)))
-
-
-
+      (score board current-player depth move)
+  (let [possible-moves   (board-logic/remaining-moves board)
+        scores           (map #(minimax (board-logic/make-move board %1 (board-logic/current-player board)) (switch-player current-player) (inc depth) %1 (not perspective)) possible-moves)
+        ]
+    (get-best-results scores true))))
 
 (defmethod player/get-move :computer [_ board]
-  (move board))
+  (minimax board (board-logic/current-player board) 0 -1 true))
