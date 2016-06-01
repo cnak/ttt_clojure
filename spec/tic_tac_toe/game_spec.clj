@@ -55,11 +55,3 @@
       (with-redefs [play-game (stub players)]
         (should-invoke console/get-game-choice {:times 1} (start))))))
 
-(describe "different types of game"
-  (it "plays a human v computer game" 
-    (with-in-str (create-input '("1" "3" "5" "7"))
-      (should (boolean (re-find #"\nX wins\n"
-                                (str (with-out-str (play-game humanVcomputer-players)))))))
-    (it "plays a computer v computer game" 
-      (should (boolean (re-find #"\nO wins\n"
-                                (str (with-out-str (play-game computerVcomputer-players)))))))))

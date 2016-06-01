@@ -2,70 +2,48 @@
   (:require [speclj.core :refer :all]
             [tic-tac-toe.computer-player :refer :all]
             [tic-tac-toe.player :as player]
-            [tic-tac-toe.board :as board]
-            ))
+            [tic-tac-toe.board :as board]))
 
 (defn get-computer-move [board]
   (player/get-move {:type-of-player :computer} board))
 
+(def second-move-board
+   ["X" "-" "-"
+    "-" "-" "-"
+    "-" "-" "-"])
+
+(def block-move-board
+   ["X" "X" "O"
+    "-" "O" "-"
+    "X" "-" "-"] )
+
+(def win-board2
+   ["X" "X" "-"
+    "O" "O" "-"
+    "X" "O" "X"])
+
 (def winning-board
-  ["O" "X" "X" 
-   "O" "O" "X"
-   "-" "-" "X"])
+   ["X" "X" "-"
+    "O" "O" "X"
+    "X" "O" "O"] )
 
-(def drawn-board
-  ["O" "X" "O" 
-   "O" "O" "X"
-   "X" "O" "X"])
+(def drawn
+   ["X" "X" "-"
+    "O" "O" "-"
+    "X" "O" "X"])
 
-(def lost-board
-  ["O" "X" "X" 
-   "X" "O" "-"
-   "-" "-" "O"])
+(describe "best move"
+  (it "picks winning move"
+    (should= 2 (get-computer-move winning-board)))
+  (it "picks winning move"
+    (should= 5 (get-computer-move win-board2)))
+  (it "blocks move 3"
+    (should= 3 (get-computer-move block-move-board)))
+  (it "returns move in the center"
+    (should= 4 (get-computer-move second-move-board)))) 
 
-(describe "final-score"
-  (it "scores 10 for a winning move"
-    (should= 10 (score winning-board "X")))
-  (it "scores 0 for a draw game"
-    (should= 0 (score drawn-board "X")))
-  (it "scores -10 for a lost game for player X"
-    (should= -10 (score lost-board "X"))))
-
-(def possible-winning-board 
-  ["X" "X" "-"
-   "O" "O" "X"
-   "X" "O" "O"])
-
-(def possible-losing-board
-  ["X" "X" "O"
-   "X" "X" "-"
-   "O" "-" "O"])
-
-(def possible-drawn-board
-  ["-" "-" "X"
-   "X" "O" "O"
-   "O" "X" "X"])
-
-(def winning-board-with-best-move 
-  [2 ["X" "X" "X"
-   "O" "O" "X"
-   "X" "O" "O"]])
-
-(describe "score-multiple"
-  (it "returns winning score multiples"
-    (should= {2 10} (score-multiple-moves winning-board-with-best-move "X"))))
-
-(describe "generate board with moves"
-  (it "returns 2 and final board"
-    (should= [2 ["X" "X" "X"  "O" "O" "X" "X" "O" "O"]]
-    (generate-possible-boards possible-winning-board "X" "O" 2))))
-
-(describe "ai picks best move"
-  (it "scores incomplete winning board"
-    (should= {2 10} (inter-score possible-winning-board "X")))
-  (it "scores incomplete losing board"
-    (should= {5 -10} (inter-score possible-losing-board "X")))
-  (it "scores incomplete drawn board"
-    (should= {0 0} (inter-score possible-drawn-board "X")))
-  )
-
+(describe "get best"
+  (it "returns best tuple for maximazing player"
+    (should= [2 100] (get-best-results [[2 100]] true)))
+  (it "returns worst tuple for minimizing player"
+        (should= [1 -100] (get-best-results [[1 -100] [2 100]] false))))
