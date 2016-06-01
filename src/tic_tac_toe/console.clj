@@ -70,5 +70,4 @@
 
 (defn get-game-type []
   (let [game-type (get-game-choice) board-size (get-board-size-choice)]
-    (conj [] game-type board-size)
-    ))
+    (conj [] game-type board-size)))

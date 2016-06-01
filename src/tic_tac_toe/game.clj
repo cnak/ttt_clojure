@@ -4,19 +4,18 @@
             [tic-tac-toe.player :as player]
             [tic-tac-toe.human-player :as human]
             [tic-tac-toe.computer-player :as computer]
-            [tic-tac-toe.game-setup :as setup-game]
-            ))
+            [tic-tac-toe.game-setup :as setup-game]))
 
-(def a-empty-board ["-" "-" "-" "-" "-" "-" "-" "-" "-"])
-(def fourbyfour-empty-board ["-" "-" "-" "-" 
-                             "-" "-" "-" "-" 
-                             "-" "-" "-" "-" 
-                             "-" "-" "-" "-" 
-                             ])
+(def empty-mark "-")
+
+(defn generate-empty-board
+  ([] (vec (repeat 9 empty-mark))) 
+  ([dimension] (vec (repeat (* dimension dimension) empty-mark))))
+
 (defn get-empty-board [board-size]
   (if (= board-size :4x4)
-    fourbyfour-empty-board 
-    a-empty-board))
+    (generate-empty-board 4) 
+    (generate-empty-board 3)))
 
 (defn get-player-move [player1 player2 board]
   (if (board/player-one-turn? board) 
@@ -24,8 +23,8 @@
   (player/get-move {:type-of-player player2} board)))
 
 (defn play-turn [board players]
-  (let [player1 (nth players 0) 
-        player2 (nth players 1)
+  (let [player1 (first players) 
+        player2 (second players)
         next-state-board (board/make-move board 
                                           (get-player-move player1 player2 board) 
                                           (board/current-player board))]
@@ -38,12 +37,9 @@
   (console/print-board (get-empty-board (second options)))
   (console/ask-for-move)
   (console/print-result (board/winner (play-turn (get-empty-board (second options)) 
-                                                 (first options)))) 
-  )
+                                                 (first options)))))
 
 (defn start []
   (console/print-welcome-message)
   (console/print-menu)
   (play-game (console/get-game-type)))
-
-  
