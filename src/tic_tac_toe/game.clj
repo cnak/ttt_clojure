@@ -19,8 +19,8 @@
 
 (defn get-player-move [player1 player2 board]
   (if (board/player-one-turn? board) 
-  (player/get-move {:type-of-player player1} board) 
-  (player/get-move {:type-of-player player2} board)))
+    (player/get-move {:type-of-player player1} board) 
+    (player/get-move {:type-of-player player2} board)))
 
 (defn play-turn [board players]
   (let [player1 (first players) 
@@ -29,6 +29,7 @@
                                           (get-player-move player1 player2 board) 
                                           (board/current-player board))]
     (console/print-board next-state-board)
+    (console/ask-for-move-player (board/current-player next-state-board))
     (if (board/game-over? next-state-board)
       next-state-board 
       (recur next-state-board players))))

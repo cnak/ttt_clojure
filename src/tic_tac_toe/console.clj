@@ -43,6 +43,9 @@
 (defn ask-for-move []
   (display-to-console ask-for-move-message))
 
+(defn ask-for-move-player [mark]
+  (display-to-console (str "Player " mark " turn, " ask-for-move-message)))
+
 (defn- invalid-move []
   (display-to-console invalid-move-message)
   (ask-for-move))
@@ -68,11 +71,9 @@
 (defn print-menu [] 
   (display-to-console menu))
 
-
 (def board-size-question "\nWhich board size?\n1. 3x3\n2. 4x4\n")
-(defn  ask-board-size []
+(defn ask-board-size []
   (display-to-console board-size-question))
-
 
 (defn invalid-board-size [ask-board-size]
   (display-to-console invalid-option-message)
