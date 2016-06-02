@@ -28,7 +28,11 @@
   (it "gets player's move"
     (should= 2 
              (with-in-str "3"
-               (get-move-choice))))) 
+               (get-move-choice)))) 
+  (it "gets player's move"
+    (should= ask-for-move-message 
+             (with-out-str (with-in-str "NotNumber"
+               (get-move-choice))))))
 (describe "start game"
   (it "prints a welcome message"
     (should= (art-welcome-message)
@@ -76,10 +80,7 @@
              (with-out-str (with-in-str "0\n1\n" (get-board-size-choice)))))
   (it "prints invalid message and asks for board size again"
     (should= :3x3
-             (with-in-str "0\n1\n" (get-board-size-choice))))
-  (xit "asks for game type after invalid move "
-    (should= [[:human :human] :3x3]
-             (with-in-str "0\n1\n0\n" (get-game-type))))) 
+             (with-in-str "0\n1\n" (get-board-size-choice)))))
 
 (describe "board size options"
   (it "asks the board size"

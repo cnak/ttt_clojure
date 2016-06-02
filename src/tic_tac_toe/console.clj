@@ -31,7 +31,10 @@
   (display-to-console ask-for-move-message))
 
 (defn get-move-choice []
-  (- (read-string (flush) (read-line)) 1))
+  (let [player-move (read-string (flush) (read-line))]
+    (if (number? player-move) 
+      (- player-move 1)
+      (ask-for-move)      )))
 
 (def welcome-message "Tic Tac Toe")
 (defn print-welcome-message []

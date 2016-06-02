@@ -147,9 +147,18 @@
              (make-move ["-" "-" "-"
                          "-" "X" "-"
                          "-" "-" "-"] 4 "O")))
-   (it "doesn't make an invalid out of bound move"
+   (it "not a valid move on existing space"
      (should= false
-              (valid-location? 4 xboard))))
+              (valid-location? 4 xboard)))
+   (it "not a valid move on out of bound "
+     (should= false
+              (valid-location? -1 xboard)))
+   (it "empty space is a valid move"
+     (should= true
+              (valid-location? 1 xboard)))
+   (it "only accepts numbers"
+     (should= false
+              (valid-location? "x" xboard)))) 
 
 (describe "Game over"
   (it "should be game over when game is drawn"

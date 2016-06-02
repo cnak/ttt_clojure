@@ -17,17 +17,17 @@
     (apply = (row board))))
 
 (def winning-positions-four-by-four
-                        [[0 1 2 3]
-                        [4 5 6 7] 
-                        [8 9 10 11] 
-                        [12 13 14 15]
-                        [0 4 8 12]
-                        [1 5 9 13]
-                        [2 6 10 14]
-                        [3 7 11 15]
-                        [0 5 10 15]
-                        [3 6 9 3]
-                         ])
+  [[0 1 2 3]
+   [4 5 6 7] 
+   [8 9 10 11] 
+   [12 13 14 15]
+   [0 4 8 12]
+   [1 5 9 13]
+   [2 6 10 14]
+   [3 7 11 15]
+   [0 5 10 15]
+   [3 6 9 3]
+   ])
 
 (def winning-positions [[0 1 2] 
                         [3 4 5] 
@@ -46,19 +46,25 @@
          position-size (count positions)
          result false]
     (if result result
-    (if (= position-size 0) result
-      (recur my-board 
-             (dec position-size)
-             (all-cell-same? my-board (nth positions (- position-size 1))))))))
+      (if (= position-size 0) result
+        (recur my-board 
+               (dec position-size)
+               (all-cell-same? my-board (nth positions (- position-size 1))))))))
 
 (defn- board-empty? [board]
   (every? #{empty-mark} board))
 
-(defn valid-location? [location board] 
-  (and  (<= location (- (count board) 1)) (empty-cell? (nth board location))))
+(defn- out-of-bounds  [location board]
+  (and (<= location (- (count board) 1)) (>= location 0)))
 
 (defn- board-full? [board]
   (not-any? empty-cell? board))
+
+(defn valid-location? [location board] 
+  (if (number? location) 
+    (and (out-of-bounds location board)
+         (empty-cell? (nth board location)))
+    false))
 
 (defn make-move [board location mark]
   (if (valid-location? location board)
@@ -74,8 +80,8 @@
 
 (defn game-won? [board]
   (if (= 16 (count board)) 
-  (winner? board winning-positions-four-by-four)
-  (winner? board winning-positions)))
+    (winner? board winning-positions-four-by-four)
+    (winner? board winning-positions)))
 
 (defn game-drawn? [board]
   (if (game-won? board) false
