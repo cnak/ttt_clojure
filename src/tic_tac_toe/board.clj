@@ -38,7 +38,8 @@
                         [0 4 8]
                         [2 4 6]])
 
-(defn- all-cell-same? [board line] (cells-the-same? #(get-cells % line) board)) 
+(defn- all-cell-same? [board line]
+  (cells-the-same? #(get-cells % line) board)) 
 
 (defn winner? [board positions]
   (loop [my-board board 
@@ -53,8 +54,8 @@
 (defn- board-empty? [board]
   (every? #{empty-mark} board))
 
-(defn- valid-location? [location board] 
-  (<= location (- (count board) 1)))
+(defn valid-location? [location board] 
+  (and  (<= location (- (count board) 1)) (empty-cell? (nth board location))))
 
 (defn- board-full? [board]
   (not-any? empty-cell? board))
@@ -98,4 +99,3 @@
     (if (= (current-player board) "O")
       "X"
       "O")))
-
