@@ -1,9 +1,13 @@
 (ns tic-tac-toe.console-spec
   (:require [speclj.core :refer :all]
             [tic-tac-toe.console :refer :all]))
+(use '[clojure.java.shell :only [sh]])
 
 (def board-four-by-four 
   (repeat 16 "-")) 
+
+(defn art-welcome-message []
+  (:out (sh "artii" "Tic Tac Toe")))
 
 (describe "printing board"
   (it "prints a 4x4 empty board"
@@ -27,7 +31,7 @@
                (get-move-choice))))) 
 (describe "start game"
   (it "prints a welcome message"
-    (should= "\nWelcome to Tic Tac Toe\n" 
+    (should= (art-welcome-message)
              (with-out-str (print-welcome-message) ))))
 
 (describe "print result"
@@ -62,7 +66,7 @@
   (it "asks the board size"
     (should= "\nWhich board size?\n1. 3x3\n2. 4x4\n"
              (with-in-str "1"
-             (with-out-str (get-board-size-choice)))))
+               (with-out-str (get-board-size-choice)))))
   (it "takes board size choice for 4x4"
     (should= :3x3 
              (with-in-str "1"

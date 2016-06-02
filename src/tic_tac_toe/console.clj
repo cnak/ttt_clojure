@@ -1,4 +1,5 @@
 (ns tic-tac-toe.console)
+(use '[clojure.java.shell :only [sh]])
 
 (defn- display-to-console [message]
   (print message))
@@ -32,9 +33,9 @@
 (defn get-move-choice []
   (- (read-string (flush) (read-line)) 1))
 
-(def welcome-message "\nWelcome to Tic Tac Toe\n")
+(def welcome-message "Tic Tac Toe")
 (defn print-welcome-message []
-  (display-to-console welcome-message))
+  (display-to-console (:out (sh "artii" welcome-message))))
 
 (defn print-result [result]
   (if (= result "-")
