@@ -26,12 +26,17 @@
     (print3x3 board)
     (print4x4 board)))
 
+(defn- read-console []
+  (try 
+  (read-string (flush) (read-line))
+    (catch Exception e (str "caught!! !"(.getMessage e)))))
+
 (def ask-for-move-message "Enter a move\n")
 (defn ask-for-move []
   (display-to-console ask-for-move-message))
 
 (defn get-move-choice []
-  (let [player-move (read-string (flush) (read-line))]
+  (let [player-move (read-console)]
     (if (number? player-move) 
       (- player-move 1)
       (ask-for-move)      )))
@@ -51,8 +56,6 @@
 (defn print-menu [] 
   (display-to-console menu))
 
-(defn- read-console []
-  (read-string (flush) (read-line)))
 
 (def board-size-question "\nWhich board size?\n1. 3x3\n2. 4x4\n")
 (defn  ask-board-size []
