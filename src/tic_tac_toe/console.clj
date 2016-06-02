@@ -62,13 +62,22 @@
       (= 1 choice) :3x3 
       (= 2 choice) :4x4)))
 
-(defn get-game-choice []
+(defn- get-game-choice []
   (let [choice (read-console)]
     (cond 
       (= 1 choice) [:human :human]
       (= 2 choice) [:human :computer]
       (= 3 choice) [:computer :computer])))
 
+(def invalid-option-message "Invalid option! Try again!")
+(defn invalid-game-type [ask-game-type]
+  (display-to-console invalid-option-message)
+  (print-menu)
+  (ask-game-type))
+
 (defn get-game-type []
-  (let [game-type (get-game-choice) board-size (get-board-size-choice)]
-    (conj [] game-type board-size)))
+  (let [game-type (get-game-choice)]
+    (if (= nil game-type) 
+      (invalid-game-type get-game-type)
+      (let [board-size (get-board-size-choice)]
+        (conj [] game-type board-size)))))

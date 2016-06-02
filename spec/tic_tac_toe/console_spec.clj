@@ -51,7 +51,7 @@
              (with-out-str (print-menu))))
   (it "gets a human v human game with 3x3 board"
     (should= [[:human :human] :3x3] 
-             (with-in-str "1\n1"
+             (with-in-str "1\n1\n"
                (get-game-type))))
   (it "gets a computer v computer game choice with 3x3"
     (should= [[:computer :computer] :3x3] 
@@ -61,6 +61,14 @@
     (should= [[:human :computer] :4x4] 
              (with-in-str "2\n2\n"
                (get-game-type)))))
+
+(describe "valid game choice"
+  (it "prints invalid option message when invalid game choice and display menu"
+    (should= (str "Invalid option! Try again!" menu board-size-question)
+             (with-out-str (with-in-str "0\n1\n1\n" (get-game-type)))))
+  (it "asks for game type after invalid move "
+    (should= [[:human :human] :3x3]
+             (with-in-str "0\n1\n1\n" (get-game-type)))))
 
 (describe "board size options"
   (it "asks the board size"
