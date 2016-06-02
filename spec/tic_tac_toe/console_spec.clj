@@ -70,6 +70,17 @@
     (should= [[:human :human] :3x3]
              (with-in-str "0\n1\n1\n" (get-game-type)))))
 
+(describe "invalid board options"
+  (it "prints invalid message for invalid board size"
+    (should= (str board-size-question invalid-option-message board-size-question)
+             (with-out-str (with-in-str "0\n1\n" (get-board-size-choice)))))
+  (it "prints invalid message and asks for board size again"
+    (should= :3x3
+             (with-in-str "0\n1\n" (get-board-size-choice))))
+  (xit "asks for game type after invalid move "
+    (should= [[:human :human] :3x3]
+             (with-in-str "0\n1\n0\n" (get-game-type))))) 
+
 (describe "board size options"
   (it "asks the board size"
     (should= "\nWhich board size?\n1. 3x3\n2. 4x4\n"

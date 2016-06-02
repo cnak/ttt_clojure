@@ -55,12 +55,21 @@
 (defn  ask-board-size []
   (display-to-console board-size-question))
 
+(def invalid-option-message "Invalid option! Try again!")
+
+(defn invalid-board-size [ask-board-size]
+  (display-to-console invalid-option-message)
+  (ask-board-size))
+
 (defn get-board-size-choice [] 
   (ask-board-size)
   (let [choice (read-console)]
     (cond 
       (= 1 choice) :3x3 
-      (= 2 choice) :4x4)))
+      (= 2 choice) :4x4
+      :else 
+      (invalid-board-size get-board-size-choice)
+      )))
 
 (defn- get-game-choice []
   (let [choice (read-console)]
@@ -69,7 +78,6 @@
       (= 2 choice) [:human :computer]
       (= 3 choice) [:computer :computer])))
 
-(def invalid-option-message "Invalid option! Try again!")
 (defn invalid-game-type [ask-game-type]
   (display-to-console invalid-option-message)
   (print-menu)
