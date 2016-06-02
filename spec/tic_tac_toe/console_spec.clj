@@ -18,7 +18,7 @@
     (should= "- - -\n- - -\n- - -\n" 
              (with-out-str (print-empty-board))))
   (it "prints a board with a move"
-    (should= "- - -\n- X -\n- - -\n" 
+    (should= (str row-line "- - -\n- X -\n- - -\n" row-line)
              (with-out-str (print-board ["-" "-" "-" 
                                          "-" "X" "-"
                                          "-" "-" "-"]))))
@@ -30,7 +30,7 @@
              (with-in-str "3"
                (get-move-choice)))) 
   (it "gets player's move"
-    (should= ask-for-move-message 
+    (should= (str invalid-move-message ask-for-move-message) 
              (with-out-str (with-in-str "NotNumber"
                (get-move-choice))))))
 (describe "start game"

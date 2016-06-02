@@ -1,6 +1,8 @@
 (ns tic-tac-toe.console)
 (use '[clojure.java.shell :only [sh]])
 
+(def row-line "-----\n" )
+
 (defn- display-to-console [message]
   (print message))
 
@@ -12,11 +14,11 @@
   (apply println (nth (partition splits board) row)))
 
 (defn- print3x3 [board]
-  (println "------")
-  (println "|")
+  (print row-line)
   (print-row board 0 3)
   (print-row board 1 3)
-  (print-row board 2 3))
+  (print-row board 2 3)
+  (print row-line))
 
 (defn- print4x4 [board]
   (print-row board 0 4)
@@ -29,6 +31,9 @@
     (print3x3 board)
     (print4x4 board)))
 
+(def invalid-option-message "Invalid option! Try again!")
+(def invalid-move-message "Invalid move Try again!")
+
 (defn- read-console []
   (try 
   (read-string (flush) (read-line))
@@ -38,11 +43,15 @@
 (defn ask-for-move []
   (display-to-console ask-for-move-message))
 
+(defn- invalid-move []
+  (display-to-console invalid-move-message)
+  (ask-for-move))
+
 (defn get-move-choice []
   (let [player-move (read-console)]
     (if (number? player-move) 
       (- player-move 1)
-      (ask-for-move)      )))
+      (invalid-move))))
 
 (def welcome-message "Tic Tac Toe")
 (defn print-welcome-message []
@@ -64,7 +73,6 @@
 (defn  ask-board-size []
   (display-to-console board-size-question))
 
-(def invalid-option-message "Invalid option! Try again!")
 
 (defn invalid-board-size [ask-board-size]
   (display-to-console invalid-option-message)
