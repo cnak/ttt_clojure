@@ -4,13 +4,16 @@
 (defn- display-to-console [message]
   (print message))
 
+(def empty-board "- - -\n- - -\n- - -\n")
 (defn print-empty-board []
-  (display-to-console "- - -\n- - -\n- - -\n"))
+  (display-to-console empty-board))
 
 (defn- print-row [board row splits]
   (apply println (nth (partition splits board) row)))
 
 (defn- print3x3 [board]
+  (println "------")
+  (println "|")
   (print-row board 0 3)
   (print-row board 1 3)
   (print-row board 2 3))
@@ -29,7 +32,7 @@
 (defn- read-console []
   (try 
   (read-string (flush) (read-line))
-    (catch Exception e (str "caught!! !"(.getMessage e)))))
+    (catch Exception e (str "Caused by console "(.getMessage e)))))
 
 (def ask-for-move-message "Enter a move\n")
 (defn ask-for-move []
