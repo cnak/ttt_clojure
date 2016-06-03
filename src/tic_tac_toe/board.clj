@@ -29,6 +29,14 @@
    [3 6 9 3]
    ])
 
+(defn gen-rows [size]
+  (loop [num 3 rows (range 0 3 1)]
+  (if (= 1 (quot size num)) 
+    rows
+    (recur (+ num 3) (into rows (range (+ 3 num) (+ num 3) 1))))))
+
+
+
 (def winning-positions [[0 1 2] 
                         [3 4 5] 
                         [6 7 8]

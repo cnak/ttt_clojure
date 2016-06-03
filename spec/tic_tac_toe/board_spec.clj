@@ -24,6 +24,10 @@
                                    "O" "O" "X"])))
   )
 
+(describe "range"
+  (it "should return "
+    (should= [0 1 3] (gen-rows 9))))
+
 (describe "a 4x4 board"
   (it "returns an 4x4 empty board"
     (should= a-4x4-empty-board
