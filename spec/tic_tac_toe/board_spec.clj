@@ -125,17 +125,40 @@
              (empty-board) ))
   (it "makes a move in the center"
     (should= ["-" "-" "-" "-" "X" "-" "-" "-" "-"]
-             (make-move ["-" "-" "-" "-" "-" "-" "-" "-" "-" ] 4 "X") ))
+             (make-move ["-" "-" "-" "-" "-" "-" "-" "-" "-" ] 4 "X")))
   (it "makes a move in the bottom right"
     (should= ["-" "-" "-"
               "-" "X" "-"
               "-" "-" "O"]
-             (make-move ["-" "-" "-" "-" "X" "-" "-" "-" "-" ] 8 "O") ))
+             (make-move ["-" "-" "-" "-" "X" "-" "-" "-" "-" ] 8 "O"))))
+
+(def xboard ["-" "-" "-" 
+             "-" "X" "-" 
+             "-" "-" "-"])
+
+(describe "valid moves"
   (it "doesn't make an invalid out of bound move"
     (should= ["-" "-" "-" "-" "X" "-" "-" "-" "-"]
              (make-move ["-" "-" "-"
                          "-" "X" "-"
-                         "-" "-" "-"] 9 "O"))))
+                         "-" "-" "-"] 9 "O")))
+ (it "does not make move on existing spot"
+    (should= ["-" "-" "-" "-" "X" "-" "-" "-" "-"]
+             (make-move ["-" "-" "-"
+                         "-" "X" "-"
+                         "-" "-" "-"] 4 "O")))
+   (it "not a valid move on existing space"
+     (should= false
+              (valid-location? 4 xboard)))
+   (it "not a valid move on out of bound "
+     (should= false
+              (valid-location? -1 xboard)))
+   (it "empty space is a valid move"
+     (should= true
+              (valid-location? 1 xboard)))
+   (it "only accepts numbers"
+     (should= false
+              (valid-location? "x" xboard)))) 
 
 (describe "Game over"
   (it "should be game over when game is drawn"
