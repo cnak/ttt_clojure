@@ -41,15 +41,11 @@
 (defn- all-cell-same? [board line]
   (cells-the-same? #(get-cells % line) board)) 
 
+(defn- any? [coll] 
+  (if (some true? coll) true false))
+
 (defn winner? [board positions]
-  (loop [my-board board 
-         position-size (count positions)
-         result false]
-    (if result result
-      (if (= position-size 0) result
-        (recur my-board 
-               (dec position-size)
-               (all-cell-same? my-board (nth positions (- position-size 1))))))))
+ (any? (map #(all-cell-same? board %) (win-positions board))))
 
 (defn- board-empty? [board]
   (every? #{empty-mark} board))
