@@ -16,35 +16,27 @@
     false
     (apply = (row board))))
 
-(def winning-positions-four-by-four
-  [[0 1 2 3]
-   [4 5 6 7] 
-   [8 9 10 11] 
-   [12 13 14 15]
-   [0 4 8 12]
-   [1 5 9 13]
-   [2 6 10 14]
-   [3 7 11 15]
-   [0 5 10 15]
-   [3 6 9 3]
-   ])
+(defn- gen-diagonals-left [board]
+  (let [step-by (Math/round (Math/sqrt (count board)))]
+  (vec (range (- step-by 1) (- (count board) 1) (- step-by 1)))))
 
-(defn gen-rows [size]
-  (loop [num 3 rows (range 0 3 1)]
-  (if (= 1 (quot size num)) 
-    rows
-    (recur (+ num 3) (into rows (range (+ 3 num) (+ num 3) 1))))))
+(defn- gen-diagonals-right [board]
+  (let [step-by (+ 1 (Math/round (Math/sqrt (count board))))]
+    (vec (range 0 (count board) step-by))))
 
+(defn- gen-diagonals [board]
+  (vector (gen-diagonals-right board) (gen-diagonals-left board)))
 
+(defn- gen-columns [board]
+  (let [row-length (Math/round (Math/sqrt (count board)))]
+    (vec (map #(vec (range % (count board) row-length)) (range 0 row-length)))))
 
-(def winning-positions [[0 1 2] 
-                        [3 4 5] 
-                        [6 7 8]
-                        [1 4 7]
-                        [2 5 8]
-                        [0 3 6]
-                        [0 4 8]
-                        [2 4 6]])
+(defn- gen-rows [board]
+  (let [row-length (Math/round (Math/sqrt (count board)))]
+    (vec (map #(vec  (range % (+ % row-length) 1)) (range 0 (count board) row-length)))))
+
+(defn- win-positions [board]
+  (into (gen-diagonals board) (into (gen-rows board) (gen-columns board))))
 
 (defn- all-cell-same? [board line]
   (cells-the-same? #(get-cells % line) board)) 
@@ -87,9 +79,7 @@
   (let [predicate #(= empty-mark %) newboard board] (keep-indexed (fn [i x] (when (predicate x) i))newboard)))
 
 (defn game-won? [board]
-  (if (= 16 (count board)) 
-    (winner? board winning-positions-four-by-four)
-    (winner? board winning-positions)))
+    (winner? board (win-positions board)))
 
 (defn game-drawn? [board]
   (if (game-won? board) false
