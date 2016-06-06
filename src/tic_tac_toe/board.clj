@@ -44,9 +44,6 @@
 (defn- any? [coll] 
   (if (some true? coll) true false))
 
-(defn winner? [board positions]
- (any? (map #(all-cell-same? board %) (win-positions board))))
-
 (defn- board-empty? [board]
   (every? #{empty-mark} board))
 
@@ -75,7 +72,7 @@
   (let [predicate #(= empty-mark %) newboard board] (keep-indexed (fn [i x] (when (predicate x) i))newboard)))
 
 (defn game-won? [board]
-    (winner? board (win-positions board)))
+ (any? (map #(all-cell-same? board %) (win-positions board))))
 
 (defn game-drawn? [board]
   (if (game-won? board) false
