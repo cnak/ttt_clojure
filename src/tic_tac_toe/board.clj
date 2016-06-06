@@ -16,27 +16,27 @@
     false
     (apply = (row board))))
 
-(defn- gen-diagonals-left [board]
+(defn- diagonals-left [board]
   (let [step-by (Math/round (Math/sqrt (count board)))]
   (vec (range (- step-by 1) (- (count board) 1) (- step-by 1)))))
 
-(defn- gen-diagonals-right [board]
+(defn- diagonals-right [board]
   (let [step-by (+ 1 (Math/round (Math/sqrt (count board))))]
     (vec (range 0 (count board) step-by))))
 
-(defn- gen-diagonals [board]
-  (vector (gen-diagonals-right board) (gen-diagonals-left board)))
+(defn- diagonals [board]
+  (vector (diagonals-right board) (diagonals-left board)))
 
-(defn- gen-columns [board]
+(defn- columns [board]
   (let [row-length (Math/round (Math/sqrt (count board)))]
     (vec (map #(vec (range % (count board) row-length)) (range 0 row-length)))))
 
-(defn- gen-rows [board]
+(defn- rows [board]
   (let [row-length (Math/round (Math/sqrt (count board)))]
     (vec (map #(vec  (range % (+ % row-length) 1)) (range 0 (count board) row-length)))))
 
 (defn- win-positions [board]
-  (into (gen-diagonals board) (into (gen-rows board) (gen-columns board))))
+  (into (diagonals board) (into (rows board) (columns board))))
 
 (defn- all-cell-same? [board line]
   (cells-the-same? #(get-cells % line) board)) 
