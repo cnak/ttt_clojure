@@ -16,40 +16,36 @@
     false
     (apply = (row board))))
 
-(def winning-positions-four-by-four
-  [[0 1 2 3]
-   [4 5 6 7] 
-   [8 9 10 11] 
-   [12 13 14 15]
-   [0 4 8 12]
-   [1 5 9 13]
-   [2 6 10 14]
-   [3 7 11 15]
-   [0 5 10 15]
-   [3 6 9 3]
-   ])
+(defn- row-length [board]
+  (Math/round (Math/sqrt (count board))))
 
-(def winning-positions [[0 1 2] 
-                        [3 4 5] 
-                        [6 7 8]
-                        [1 4 7]
-                        [2 5 8]
-                        [0 3 6]
-                        [0 4 8]
-                        [2 4 6]])
+(defn- diagonals-left [board]
+  (let [step-by (row-length board)]
+  (vec (range (- step-by 1) (- (count board) 1) (- step-by 1)))))
+
+(defn- diagonals-right [board]
+  (let [step-by (+ 1 (row-length board))]
+    (vec (range 0 (count board) step-by))))
+
+(defn- diagonals [board]
+  (vector (diagonals-right board) (diagonals-left board)))
+
+(defn- columns [board]
+  (let [row-length (row-length board)]
+    (vec (map #(vec (range % (count board) row-length)) (range 0 row-length)))))
+
+(defn- rows [board]
+  (let [row-length (row-length board)]
+    (vec (map #(vec  (range % (+ % row-length) 1)) (range 0 (count board) row-length)))))
+
+(defn- win-positions [board]
+  (into (diagonals board) (into (rows board) (columns board))))
 
 (defn- all-cell-same? [board line]
   (cells-the-same? #(get-cells % line) board)) 
 
-(defn winner? [board positions]
-  (loop [my-board board 
-         position-size (count positions)
-         result false]
-    (if result result
-      (if (= position-size 0) result
-        (recur my-board 
-               (dec position-size)
-               (all-cell-same? my-board (nth positions (- position-size 1))))))))
+(defn- any? [coll] 
+  (if (some true? coll) true false))
 
 (defn- board-empty? [board]
   (every? #{empty-mark} board))
@@ -79,9 +75,7 @@
   (let [predicate #(= empty-mark %) newboard board] (keep-indexed (fn [i x] (when (predicate x) i))newboard)))
 
 (defn game-won? [board]
-  (if (= 16 (count board)) 
-    (winner? board winning-positions-four-by-four)
-    (winner? board winning-positions)))
+ (any? (map #(all-cell-same? board %) (win-positions board))))
 
 (defn game-drawn? [board]
   (if (game-won? board) false
