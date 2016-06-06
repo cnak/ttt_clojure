@@ -16,23 +16,26 @@
     false
     (apply = (row board))))
 
+(defn- row-length [board]
+  (Math/round (Math/sqrt (count board))))
+
 (defn- diagonals-left [board]
-  (let [step-by (Math/round (Math/sqrt (count board)))]
+  (let [step-by (row-length board)]
   (vec (range (- step-by 1) (- (count board) 1) (- step-by 1)))))
 
 (defn- diagonals-right [board]
-  (let [step-by (+ 1 (Math/round (Math/sqrt (count board))))]
+  (let [step-by (+ 1 (row-length board))]
     (vec (range 0 (count board) step-by))))
 
 (defn- diagonals [board]
   (vector (diagonals-right board) (diagonals-left board)))
 
 (defn- columns [board]
-  (let [row-length (Math/round (Math/sqrt (count board)))]
+  (let [row-length (row-length board)]
     (vec (map #(vec (range % (count board) row-length)) (range 0 row-length)))))
 
 (defn- rows [board]
-  (let [row-length (Math/round (Math/sqrt (count board)))]
+  (let [row-length (row-length board)]
     (vec (map #(vec  (range % (+ % row-length) 1)) (range 0 (count board) row-length)))))
 
 (defn- win-positions [board]
